@@ -30,18 +30,18 @@
             margin-bottom: 20px;
         }
         label {
-            display: block;
+            display: flex;
+            align-items: center; /* Aligns the label text with the radio button */
             padding: 5px;
             cursor: pointer;
         }
         input[type="radio"], input[type="text"], textarea {
-            margin-right: 8px;
-            width: 100%;
+            margin-right: 10px;
         }
         button {
             background-color: #007BFF;
             color: white;
-            padding: 12px;
+            padding: 10px;
             border: none;
             width: 100%;
             border-radius: 5px;
@@ -54,18 +54,13 @@
         }
         /* Print-specific styles */
         @media print {
-            body {
+            body, .container {
                 background-color: white;
-                padding: 0;
-                margin: 0;
-                font-size: 12px;
-            }
-            .container {
                 box-shadow: none;
-                border-radius: 0;
-                max-width: 100%;
-                width: auto;
                 padding: 5px;
+                margin: 0;
+                max-width: 100%;
+                font-size: 10px;
             }
             button, .actions {
                 display: none;
@@ -94,19 +89,19 @@
                 <label><input type="radio" name="q3" value="0"> Non</label>
             </div>
             <div class="question">
-                <p>4. Avez-vous déjà été diagnostiqué d’une autre maladie chronique (autre qu’une maladie cardiaque ou d’hypertension artérielle) ? Lister les maladies ici :</p>
+                <p>4. Avez-vous déjà été diagnostiqué d’une autre maladie chronique (autre qu’une maladie cardiaque ou d’hypertension artérielle) ?</p>
                 <label><input type="radio" name="q4" value="1"> Oui</label>
                 <label><input type="radio" name="q4" value="0"> Non</label>
                 <textarea name="q4_details" placeholder="Lister les maladies ici"></textarea>
             </div>
             <div class="question">
-                <p>5. Prenez-vous actuellement des médicaments prescrits pour une maladie chronique ? Lister les maladies et les médicaments ici :</p>
+                <p>5. Prenez-vous actuellement des médicaments prescrits pour une maladie chronique ?</p>
                 <label><input type="radio" name="q5" value="1"> Oui</label>
                 <label><input type="radio" name="q5" value="0"> Non</label>
                 <textarea name="q5_details" placeholder="Lister les maladies et les médicaments ici"></textarea>
             </div>
             <div class="question">
-                <p>6. Avez-vous actuellement (ou avez-vous eu dans les 12 derniers mois) des problèmes osseux, articulaires, ou des tissus mous (muscle, ligament, ou tendon) qui pourraient être aggravés par une augmentation d’activité physique ? Répondez non si vous avez déjà eu un problème dans le passé, mais qui ne limite pas votre pratique d’activité physique présente. Lister vos problèmes médicaux ici :</p>
+                <p>6. Avez-vous actuellement des problèmes osseux, articulaires, ou des tissus mous qui pourraient être aggravés par une augmentation d’activité physique ?</p>
                 <label><input type="radio" name="q6" value="1"> Oui</label>
                 <label><input type="radio" name="q6" value="0"> Non</label>
                 <textarea name="q6_details" placeholder="Lister vos problèmes médicaux ici"></textarea>
@@ -166,3 +161,4 @@
     </script>
 </body>
 </html>
+
