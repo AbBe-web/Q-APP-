@@ -89,24 +89,24 @@
                 <label><input type="radio" name="q2" value="0"> Non</label>
             </div>
             <div class="question">
-                <p>3. Éprouvez-vous des pertes d’équilibre liées à des étourdissements ou avez-vous perdu conscience au cours des 12 derniers mois ?</p>
+                <p>3. Éprouvez-vous des pertes d’équilibre liées à des étourdissements ou avez-vous perdu conscience au cours des 12 derniers mois ? Répondez non si vos étourdissements étaient liés à de l’hyperventilation (y compris pendant une activité physique d’intensité élevée).</p>
                 <label><input type="radio" name="q3" value="1"> Oui</label>
                 <label><input type="radio" name="q3" value="0"> Non</label>
             </div>
             <div class="question">
-                <p>4. Avez-vous déjà été diagnostiqué d’une autre maladie chronique ?</p>
+                <p>4. Avez-vous déjà été diagnostiqué d’une autre maladie chronique (autre qu’une maladie cardiaque ou d’hypertension artérielle) ? Lister les maladies ici :</p>
                 <label><input type="radio" name="q4" value="1"> Oui</label>
                 <label><input type="radio" name="q4" value="0"> Non</label>
                 <textarea name="q4_details" placeholder="Lister les maladies ici"></textarea>
             </div>
             <div class="question">
-                <p>5. Prenez-vous actuellement des médicaments prescrits pour une maladie chronique ?</p>
+                <p>5. Prenez-vous actuellement des médicaments prescrits pour une maladie chronique ? Lister les maladies et les médicaments ici :</p>
                 <label><input type="radio" name="q5" value="1"> Oui</label>
                 <label><input type="radio" name="q5" value="0"> Non</label>
                 <textarea name="q5_details" placeholder="Lister les maladies et les médicaments ici"></textarea>
             </div>
             <div class="question">
-                <p>6. Avez-vous actuellement des problèmes osseux, articulaires, ou des tissus mous qui pourraient être aggravés par une augmentation d’activité physique ?</p>
+                <p>6. Avez-vous actuellement (ou avez-vous eu dans les 12 derniers mois) des problèmes osseux, articulaires, ou des tissus mous (muscle, ligament, ou tendon) qui pourraient être aggravés par une augmentation d’activité physique ? Répondez non si vous avez déjà eu un problème dans le passé, mais qui ne limite pas votre pratique d’activité physique présente. Lister vos problèmes médicaux ici :</p>
                 <label><input type="radio" name="q6" value="1"> Oui</label>
                 <label><input type="radio" name="q6" value="0"> Non</label>
                 <textarea name="q6_details" placeholder="Lister vos problèmes médicaux ici"></textarea>
@@ -160,7 +160,7 @@
             });
 
             content += "\nConclusion:\n" + document.querySelector('.result-message').textContent;
-            doc.text(content, 10, 10, { maxWidth: 190 }); // Use maxWidth to manage line breaks
+            doc.text(content, 10, 10, { maxWidth: 180 }); // Use maxWidth to manage line breaks
             doc.save('Questionnaire-Q-AAP+.pdf');
         }
     </script>
