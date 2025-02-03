@@ -22,7 +22,7 @@
             max-width: 600px;
             width: 100%;
         }
-        h1, p, .result-message {
+        h1, p, .result-message, .full-responses {
             text-align: center;
             color: #333;
         }
@@ -52,7 +52,6 @@
         button:hover {
             background-color: #0056b3;
         }
-
         /* Responsive adjustments */
         @media (max-width: 768px) {
             body, .container {
@@ -63,6 +62,28 @@
             }
             button, input[type="text"], input[type="email"], textarea {
                 font-size: 1em; /* Larger font for easier reading and interaction */
+            }
+        }
+        /* Print-specific styles */
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+                margin: 0;
+                font-size: 12px; /* Smaller font to fit content on one page */
+            }
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+                max-width: 100%;
+                width: auto;
+                padding: 5px;
+            }
+            button, .actions {
+                display: none; /* Hide buttons during print */
+            }
+            .result-message {
+                font-size: 10px; /* Smaller font for the result message */
             }
         }
     </style>
@@ -117,6 +138,7 @@
             </div>
             <button type="button" onclick="submitForm()">Soumettre</button>
             <div class="result-message"></div>
+            <div class="full-responses"></div>
             <div class="actions">
                 <button type="button" onclick="printDocument()">Imprimer</button>
                 <button type="button" onclick="generatePDF()">Créer PDF</button>
@@ -129,14 +151,26 @@
 
         function submitForm() {
             const form = document.forms['qAppPlusForm'];
-            let hasYes = Array.from(form.querySelectorAll('input[type="radio"]:checked')).some(radio => radio.value === '1');
+            const responses = Array.from(form.querySelectorAll('input[type="radio"]:checked'));
+            let hasYes = responses.some(radio => radio.value === '1');
             const resultMessage = document.querySelector('.result-message');
+            const fullResponses = document.querySelector('.full-responses');
+            let fullResponseText = "Réponses complètes au questionnaire:\n\n";
+
+            responses.forEach((input, index) => {
+                const question = form.querySelectorAll('.question p')[index];
+                fullResponseText += (index + 1) + ". " + question.textContent + ": " + (input.value === '1' ? "Oui" : "Non") + "\n";
+            });
+
             if (hasYes) {
                 resultMessage.textContent = "Vous avez répondu oui, à au moins une des questions, il est recommandé de consulter votre médecin avant d'augmenter votre niveau d'activité physique.";
             } else {
                 resultMessage.textContent = "Vous avez répondu non à toutes les questions ci-dessus, vous pouvez pratiquer l'activité physique. Toutefois, si vous avez plus de 45 ans et que vous envisagez de pratiquer de l'activité physique intense ou très intense, il est recommandé que vous consultiez votre médecin avant de pratiquer.";
             }
-            // Save response for PDF generation
+
+            fullResponses.textContent = fullResponseText;
+            // Save responses for PDF generation
+            window.localStorage.setItem('fullResponseText', fullResponseText);
             window.localStorage.setItem('responseText', resultMessage.textContent);
         }
 
@@ -147,13 +181,8 @@
         function generatePDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-            let content = "Réponses au Questionnaire Q-AAP+:\n\n";
-            const form = document.forms['qAppPlusForm'];
-            Array.from(form.querySelectorAll('input[type="radio"]:checked')).forEach((input, index) => {
-                content += (index + 1) + ". " + form.querySelector(`label[for="${input.id}"]`).textContent + ": " + (input.value === '1' ? "Oui" : "Non") + "\n";
-            });
 
-            content += "\nConclusion:\n" + window.localStorage.getItem('responseText');
+            let content = window.localStorage.getItem('fullResponseText') + "\nConclusion:\n" + window.localStorage.getItem('responseText');
 
             doc.text(content, 10, 10);
             doc.save('Questionnaire-Q-AAP+.pdf');
