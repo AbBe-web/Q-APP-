@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionnaire Q-AAP+</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
+        }
+        h1, p, .result-message {
+            text-align: center;
+            color: #333;
+        }
+        .question, .personal-info, .actions {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            padding: 5px;
+            cursor: pointer;
+        }
+        input[type="radio"], input[type="text"], input[type="email"], textarea {
+            margin-right: 8px;
+            width: 100%;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 12px;
+            border: none;
+            width: 100%;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            body, .container {
+                padding: 10px;
+            }
+            h1 {
+                font-size: 1.2em; /* Slightly smaller on mobile */
+            }
+            button, input[type="text"], input[type="email"], textarea {
+                font-size: 1em; /* Larger font for easier reading and interaction */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Questionnaire Q-AAP+</h1>
+        <p>Lisez les 7 questions avec attention et répondez à chacune, avec honnêteté, par oui ou non</p>
+        <form id="qAppPlusForm">
+            <!-- Add all questions here as shown earlier in the previous responses. -->
+            <div class="personal-info">
+                <input type="text" id="firstName" placeholder="Prénom" required>
+                <input type="text" id="lastName" placeholder="Nom" required>
+                <p>Date: <span id="currentDate"></span></p>
+            </div>
+            <button type="button" onclick="submitForm()">Soumettre</button>
+            <div class="result-message"></div>
+            <div class="actions">
+                <button type="button" onclick="printDocument()">Imprimer</button>
+                <button type="button" onclick="sendByEmail()">Envoyer par Email</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('fr-FR');
+
+        function submitForm() {
+            const form = document.forms['qAppPlusForm'];
+            let hasYes = Array.from(form.querySelectorAll('input[type="radio"]:checked')).some(radio => radio.value === '1');
+            const resultMessage = document.querySelector('.result-message');
+            if (hasYes) {
+                resultMessage.textContent = "Vous avez répondu oui, à au moins une des questions, il est recommandé de consulter votre médecin avant d'augmenter votre niveau d'activité physique.";
+            } else {
+                resultMessage.textContent = "Vous avez répondu non à toutes les questions ci-dessus, vous pouvez pratiquer l'activité physique. Toutefois, si vous avez plus de 45 ans et que vous envisagez de pratiquer de l'activité physique intense ou très intense, il est recommandé que vous consultiez votre médecin avant de pratiquer.";
+            }
+        }
+
+        function printDocument() {
+            window.print();
+        }
+
+        function sendByEmail() {
+            // Placeholder for email sending functionality
+            alert('Fonctionnalité d\'envoi par email non implémentée. Veuillez configurer le serveur pour envoyer des emails.');
+        }
+    </script>
+</body>
+</html>
