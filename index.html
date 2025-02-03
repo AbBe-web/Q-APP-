@@ -72,7 +72,44 @@
         <h1>Questionnaire Q-AAP+</h1>
         <p>Lisez les 7 questions avec attention et répondez à chacune, avec honnêteté, par oui ou non</p>
         <form id="qAppPlusForm">
-            <!-- Questions will be here -->
+            <div class="question">
+                <p>1. Votre médecin vous a dit que vous étiez atteint d’un problème cardiaque ou d’une hypertension ?</p>
+                <label><input type="radio" name="q1" value="1"> Oui</label>
+                <label><input type="radio" name="q1" value="0"> Non</label>
+            </div>
+            <div class="question">
+                <p>2. Ressentez-vous une douleur à la poitrine au repos, ou au cours de vos activités quotidiennes ou lorsque vous faites de l’activité physique ?</p>
+                <label><input type="radio" name="q2" value="1"> Oui</label>
+                <label><input type="radio" name="q2" value="0"> Non</label>
+            </div>
+            <div class="question">
+                <p>3. Éprouvez-vous des pertes d’équilibre liées à des étourdissements ou avez-vous perdu conscience au cours des 12 derniers mois ?</p>
+                <label><input type="radio" name="q3" value="1"> Oui</label>
+                <label><input type="radio" name="q3" value="0"> Non</label>
+            </div>
+            <div class="question">
+                <p>4. Avez-vous déjà été diagnostiqué d’une autre maladie chronique ?</p>
+                <label><input type="radio" name="q4" value="1"> Oui</label>
+                <label><input type="radio" name="q4" value="0"> Non</label>
+                <textarea name="q4_details" placeholder="Lister les maladies ici"></textarea>
+            </div>
+            <div class="question">
+                <p>5. Prenez-vous actuellement des médicaments prescrits pour une maladie chronique ?</p>
+                <label><input type="radio" name="q5" value="1"> Oui</label>
+                <label><input type="radio" name="q5" value="0"> Non</label>
+                <textarea name="q5_details" placeholder="Lister les maladies et les médicaments ici"></textarea>
+            </div>
+            <div class="question">
+                <p>6. Avez-vous actuellement des problèmes osseux, articulaires, ou des tissus mous qui pourraient être aggravés par une augmentation d’activité physique ?</p>
+                <label><input type="radio" name="q6" value="1"> Oui</label>
+                <label><input type="radio" name="q6" value="0"> Non</label>
+                <textarea name="q6_details" placeholder="Lister vos problèmes médicaux ici"></textarea>
+            </div>
+            <div class="question">
+                <p>7. Votre médecin vous a-t-il déjà dit que vous ne devriez pas faire d’activité physique sans supervision médicale ?</p>
+                <label><input type="radio" name="q7" value="1"> Oui</label>
+                <label><input type="radio" name="q7" value="0"> Non</label>
+            </div>
             <div class="personal-info">
                 <input type="text" id="firstName" placeholder="Prénom" required>
                 <input type="text" id="lastName" placeholder="Nom" required>
@@ -82,37 +119,44 @@
             <div class="result-message"></div>
             <div class="actions">
                 <button type="button" onclick="printDocument()">Imprimer</button>
-                <button type="button" onclick="sendByEmail()">Envoyer par Email</button>
+                <button type="button" onclick="generatePDF()">Créer PDF</button>
             </div>
         </form>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script>
         document.getElementById('currentDate').textContent = new Date().toLocaleDateString('fr-FR');
 
         function submitForm() {
             const form = document.forms['qAppPlusForm'];
-            const inputs = form.querySelectorAll('input[type="radio"]:checked');
-            let age = document.getElementById('age').value; // Ensure you add an age input if necessary.
-            let hasYes = Array.from(inputs).some(radio => radio.value === '1');
+            let hasYes = Array.from(form.querySelectorAll('input[type="radio"]:checked')).some(radio => radio.value === '1');
             const resultMessage = document.querySelector('.result-message');
-
             if (hasYes) {
                 resultMessage.textContent = "Vous avez répondu oui, à au moins une des questions, il est recommandé de consulter votre médecin avant d'augmenter votre niveau d'activité physique.";
             } else {
-                if (parseInt(age) > 45) {
-                    resultMessage.textContent = "Vous avez répondu non à toutes les questions ci-dessus, vous pouvez pratiquer l'activité physique. Toutefois, si vous envisagez de pratiquer de l'activité physique intense ou très intense, il est recommandé que vous consultiez votre médecin avant de pratiquer. Si vous avez moins de 45 ans, vous pouvez augmenter votre niveau d'activité physique sans restriction. Dans tous les cas, soyez progressif et attentif aux signes d'alerte qui doivent vous faire consulter votre médecin même si dans la très grande majorité des cas, tout se passera bien et que vous améliorerez ainsi votre santé.";
-                } else {
-                    resultMessage.textContent = "Vous avez répondu non à toutes les questions et avez moins de 45 ans, vous pouvez augmenter votre niveau d'activité physique sans restriction. Toutefois, soyez progressif et attentif aux signes d'alerte.";
-                }
+                resultMessage.textContent = "Vous avez répondu non à toutes les questions ci-dessus, vous pouvez pratiquer l'activité physique. Toutefois, si vous avez plus de 45 ans et que vous envisagez de pratiquer de l'activité physique intense ou très intense, il est recommandé que vous consultiez votre médecin avant de pratiquer.";
             }
+            // Save response for PDF generation
+            window.localStorage.setItem('responseText', resultMessage.textContent);
         }
 
         function printDocument() {
             window.print();
         }
 
-        function sendByEmail() {
-            alert('Fonctionnalité d\'envoi par email non implémentée. Veuillez configurer le serveur pour envoyer des emails.');
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            let content = "Réponses au Questionnaire Q-AAP+:\n\n";
+            const form = document.forms['qAppPlusForm'];
+            Array.from(form.querySelectorAll('input[type="radio"]:checked')).forEach((input, index) => {
+                content += (index + 1) + ". " + form.querySelector(`label[for="${input.id}"]`).textContent + ": " + (input.value === '1' ? "Oui" : "Non") + "\n";
+            });
+
+            content += "\nConclusion:\n" + window.localStorage.getItem('responseText');
+
+            doc.text(content, 10, 10);
+            doc.save('Questionnaire-Q-AAP+.pdf');
         }
     </script>
 </body>
