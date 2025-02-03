@@ -133,8 +133,8 @@
             let hasYes = Array.from(form.querySelectorAll('input[type="radio"]:checked')).some(radio => radio.value === '1');
             const resultMessage = document.querySelector('.result-message');
             resultMessage.textContent = hasYes ?
-                "Vous avez répondu oui, à au moins une des questions, il est recommandé de consulter votre médecin avant d'augmenter votre niveau d'activité physique." :
-                "Vous avez répondu non à toutes les questions ci-dessus, vous pouvez augmenter votre niveau d'activité physique. Toutefois, si vous avez plus de 45 ans et que vous envisagez de pratiquer de l'activité physique intense ou très intense, il est recommandé de consulter votre médecin avant de pratiquer par précaution.";
+                "Bravo d'envisager de pratiquer davantage d'activité physique ou sportive. Vous avez répondu oui, à au moins une des questions, il est recommandé de consulter votre médecin avant d'augmenter votre niveau d'activité physique." :
+                "Bravo d'envisager de pratiquer davantage d'activité physique ou sportive. Vous avez répondu non à toutes les questions ci-dessus, vous pouvez augmenter votre niveau d'activité physique. Toutefois, si vous avez plus de 45 ans et que vous envisagez de pratiquer de l'activité physique intense ou très intense, il est recommandé de consulter votre médecin avant de pratiquer par précaution.";
         }
 
         function printDocument() {
