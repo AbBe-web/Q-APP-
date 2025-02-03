@@ -27,8 +27,8 @@
             text-align: center;
             color: #333;
         }
-        p, label, input, .result-message, textarea {
-            font-size: 14px; /* Standard font size for all text elements */
+        p, .result-message {
+            font-size: 14px; /* Standard font size for text elements */
             text-align: center;
             color: #333;
         }
@@ -45,9 +45,16 @@
             padding: 5px;
             cursor: pointer;
         }
-        input[type="radio"], input[type="text"], textarea {
+        input[type="radio"], input[type="text"] {
             margin-right: 10px;
+        }
+        input[type="text"], textarea {
             width: 100%; /* Full width for text areas and input */
+        }
+        textarea {
+            font-size: 12px; /* Smaller font size for textarea inputs */
+            height: 20px; /* Fixed height to control the size */
+            resize: none; /* Prevent resizing */
         }
         button {
             background-color: #007BFF;
@@ -71,10 +78,10 @@
                 padding: 5px;
                 margin: 0;
                 max-width: 100%;
-                font-size: 14px; /* Standard font size for all text elements */
+                font-size: 12px; /* Reduced font size for questions to fit on one page */
             }
             .result-message {
-                font-size: 16px; /* Slightly larger for the conclusion */
+                font-size: 14px; /* Larger for the conclusion */
             }
             button, .actions {
                 display: none; /* Hide buttons during print */
@@ -87,6 +94,7 @@
         <h1>Questionnaire Q-AAP+</h1>
         <p>Lisez les 7 questions avec attention et répondez à chacune, avec honnêteté, par oui ou non</p>
         <form id="qAppPlusForm">
+            <!-- Detailed questions and textarea input areas -->
             <div class="question">
                 <p>1. Votre médecin vous a dit que vous étiez atteint d’un problème cardiaque ou d’une hypertension ?</p>
                 <label><input type="radio" name="q1" value="1"> Oui</label>
