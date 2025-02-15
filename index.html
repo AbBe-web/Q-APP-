@@ -40,14 +40,14 @@
             margin-bottom: 15px;
         }
         .question p {
-            margin: 0 0 10px 0; /* Espace entre la question et les cases Oui/Non */
+            margin: 0 0 10px 0;
         }
         label {
-            display: block; /* Affiche les options "Oui" et "Non" sous forme de liste */
-            margin-bottom: 5px; /* Ajoute un espacement entre chaque option */
+            display: block;
+            margin-bottom: 5px;
         }
         input[type="radio"] {
-            margin-right: 5px; /* Espace entre la case et le texte Oui/Non */
+            margin-right: 5px;
         }
         textarea {
             font-size: 12px;
@@ -162,60 +162,3 @@
             </div>
         </form>
     </div>
-    <script>
-        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('fr-FR');
-
-        function submitForm() {
-            const form = document.forms['qAppPlusForm'];
-            let hasYes = Array.from(form.querySelectorAll('input[type="radio"]:checked')).some(radio => radio.value === '1');
-            const resultMessage = document.querySelector('.result-message');
-
-            if (hasYes) {
-                resultMessage.textContent = "Vous avez répondu oui à au moins une des questions. Consultez votre médecin avant d'augmenter votre niveau d'activité physique.";
-            } else {
-                document.getElementById('agePrompt').style.display = 'block';
-            }
-        }
-
-        function submitAge() {
-            const age = parseInt(document.getElementById('userAge').value);
-            const resultMessage = document.querySelector('.result-message');
-
-            if (isNaN(age) || age < 1) {
-                alert("Veuillez entrer un âge valide.");
-                return;
-            }
-
-            document.getElementById('agePrompt').style.display = 'none';
-
-            if (age < 45) {
-                resultMessage.textContent = "Vous pouvez donc augmenter progressivement votre niveau d'activité physique. Un avis médical préalable n'est pas recommandé selon le guide de l'HAS Consultation et prescription médicale d’activité physique à des fins de santé chez l’adulte.";
-            } else {
-                document.getElementById('activityPrompt').style.display = 'block';
-            }
-        }
-
-        function submitActivity() {
-            const activityLevel = document.querySelector('input[name="activityLevel"]:checked');
-            const resultMessage = document.querySelector('.result-message');
-
-            if (!activityLevel) {
-                alert("Veuillez sélectionner un niveau d'activité physique.");
-                return;
-            }
-
-            document.getElementById('activityPrompt').style.display = 'none';
-
-            if (activityLevel.value === 'modéré') {
-                resultMessage.textContent = "Vous pouvez donc augmenter progressivement votre niveau d'activité physique. Un avis médical préalable n'est pas recommandé selon le guide de l'HAS Consultation et prescription médicale d’activité physique à des fins de santé chez l’adulte.";
-            } else {
-                resultMessage.textContent = "Il est recommandé que vous consultiez votre médecin avant d'augmenter votre niveau d'activité physique.";
-            }
-        }
-
-        function printDocument() {
-            window.print();
-        }
-    </script>
-</body>
-</html>
