@@ -62,12 +62,12 @@
             margin-right: 5px;
         }
         input[type="text"], textarea {
-            width: 100%; /* Full width for text areas and input */
+            width: 100%;
         }
         textarea {
-            font-size: 12px; /* Smaller font size for textarea inputs */
-            height: 40px; /* Adjusted height */
-            resize: none; /* Prevent resizing */
+            font-size: 12px;
+            height: 40px;
+            resize: none;
         }
         button {
             background-color: #007BFF;
@@ -83,7 +83,18 @@
         button:hover {
             background-color: #0056b3;
         }
-        /* Print-specific styles */
+        #agePrompt {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+#agePrompt input,
+#agePrompt button {
+    margin-top: 10px;
+}
         @media print {
             body, .container {
                 background-color: white;
@@ -91,13 +102,13 @@
                 padding: 5px;
                 margin: 0;
                 max-width: 100%;
-                font-size: 12px; /* Reduced font size for questions to fit on one page */
+                font-size: 12px;
             }
             .result-message {
-                font-size: 14px; /* Larger for the conclusion */
+                font-size: 14px;
             }
             button, .actions {
-                display: none; /* Hide buttons during print */
+                display: none;
             }
         }
     </style>
@@ -179,10 +190,10 @@
     const resultMessage = document.querySelector('.result-message');
 
     if (hasYes) {
-        // Si au moins une réponse est Oui, afficher le message actuel.
+
         resultMessage.textContent = "Vous avez répondu oui, à au moins une des questions, il est recommandé de consulter votre médecin avant d'augmenter votre niveau d'activité physique.";
     } else {
-        // Si toutes les réponses sont Non, demander l'âge.
+
         document.getElementById('agePrompt').style.display = 'block';
     }
 }
@@ -195,13 +206,13 @@ function submitAge() {
         return;
     }
 
-    document.getElementById('agePrompt').style.display = 'none'; // Masquer l'âge une fois soumis.
+    document.getElementById('agePrompt').style.display = 'none';
 
     if (age < 45) {
-        // Si l'âge est inférieur à 45 ans, afficher le message standard.
+       
         resultMessage.textContent = "Vous avez répondu non à toutes les questions ci-dessus, vous pouvez augmenter progressivement votre niveau d'activité physique. Toutefois, si vous avez plus de 45 ans et que vous envisagez de pratiquer une activité physique intense ou très intense, il est recommandé que vous consultiez votre médecin avant de pratiquer.";
     } else {
-        // Si l'âge est supérieur ou égal à 45 ans, demander le niveau d'activité physique.
+
         document.getElementById('activityPrompt').style.display = 'block';
     }
 }
@@ -214,7 +225,7 @@ function submitActivity() {
         return;
     }
 
-    document.getElementById('activityPrompt').style.display = 'none'; // Masquer le formulaire d'activité.
+    document.getElementById('activityPrompt').style.display = 'none'; 
 
     if (activityLevel.value === 'modéré') {
         resultMessage.textContent = "Vous pouvez augmenter progressivement votre niveau d'activité physique.";
