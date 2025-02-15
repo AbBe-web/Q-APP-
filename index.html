@@ -37,31 +37,24 @@
             font-weight: bold;
         }
         .question {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px; /* Espace entre question et options Oui/Non */
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
         .question p {
-            flex: 1; /* Le texte de la question occupe l'espace disponible */
-            margin: 0;
+            margin: 0 0 10px 0; /* Espace entre la question et les cases Oui/Non */
         }
         label {
-            margin-left: 0;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
+            display: block; /* Affiche les options "Oui" et "Non" sous forme de liste */
+            margin-bottom: 5px; /* Ajoute un espacement entre chaque option */
         }
-        input[type="radio"], input[type="text"], textarea {
-            margin-right: 5px;
-        }
-        input[type="text"], textarea {
-            width: 100%;
+        input[type="radio"] {
+            margin-right: 5px; /* Espace entre la case et le texte Oui/Non */
         }
         textarea {
             font-size: 12px;
+            width: 100%;
             height: 40px;
             resize: none;
+            margin-top: 5px;
         }
         button {
             background-color: #007BFF;
@@ -84,10 +77,6 @@
             border-radius: 5px;
             background-color: #f9f9f9;
         }
-        #agePrompt p, #activityPrompt p {
-            font-size: 14px;
-            margin-bottom: 5px;
-        }
         #agePrompt input,
         #agePrompt button {
             margin-top: 10px;
@@ -101,9 +90,6 @@
                 max-width: 100%;
                 font-size: 12px;
             }
-            .result-message {
-                font-size: 14px;
-            }
             button, .actions {
                 display: none;
             }
@@ -113,7 +99,7 @@
 <body>
     <div class="container">
         <h1>Questionnaire Q-AAP+</h1>
-        <p>Ce questionnaire s'adresse aux personnes de 15 à 69 ans voulant augmenter leur niveau d'activité physique. Bravo à vous si vous êtes dans ce cas ;-) L'objectif est de savoir si vous avez besoin d'avoir un avis médical avant. Lisez les 7 questions avec attention et répondez à chacune, avec honnêteté, par oui ou non.</p>
+        <p>Ce questionnaire s'adresse aux personnes de 15 à 69 ans voulant augmenter leur niveau d'activité physique. Lisez les questions et répondez par "Oui" ou "Non".</p>
         <form id="qAppPlusForm">
             <div class="question">
                 <p>1. Votre médecin vous a dit que vous étiez atteint d’un problème cardiaque ou d’une hypertension ?</p>
@@ -130,7 +116,29 @@
                 <label><input type="radio" name="q3" value="1"> Oui</label>
                 <label><input type="radio" name="q3" value="0"> Non</label>
             </div>
-            <!-- Les autres questions suivent la même structure -->
+            <div class="question">
+                <p>4. Avez-vous déjà été diagnostiqué d’une autre maladie chronique (autre qu’une maladie cardiaque ou d’hypertension artérielle) ?</p>
+                <label><input type="radio" name="q4" value="1"> Oui</label>
+                <label><input type="radio" name="q4" value="0"> Non</label>
+                <textarea name="q4_details" placeholder="Listez les maladies ici"></textarea>
+            </div>
+            <div class="question">
+                <p>5. Prenez-vous actuellement des médicaments prescrits pour une maladie chronique ?</p>
+                <label><input type="radio" name="q5" value="1"> Oui</label>
+                <label><input type="radio" name="q5" value="0"> Non</label>
+                <textarea name="q5_details" placeholder="Listez les médicaments ici"></textarea>
+            </div>
+            <div class="question">
+                <p>6. Avez-vous actuellement des problèmes osseux, articulaires, ou des tissus mous qui pourraient être aggravés par une augmentation d’activité physique ?</p>
+                <label><input type="radio" name="q6" value="1"> Oui</label>
+                <label><input type="radio" name="q6" value="0"> Non</label>
+                <textarea name="q6_details" placeholder="Listez vos problèmes ici"></textarea>
+            </div>
+            <div class="question">
+                <p>7. Votre médecin vous a-t-il déjà dit que vous ne devriez pas faire d’activité physique sans supervision médicale ?</p>
+                <label><input type="radio" name="q7" value="1"> Oui</label>
+                <label><input type="radio" name="q7" value="0"> Non</label>
+            </div>
             <div class="personal-info">
                 <input type="text" id="firstName" placeholder="Prénom" required>
                 <input type="text" id="lastName" placeholder="Nom" required>
@@ -155,7 +163,6 @@
         </form>
     </div>
     <script>
-        // Ajout de la date actuelle
         document.getElementById('currentDate').textContent = new Date().toLocaleDateString('fr-FR');
 
         function submitForm() {
@@ -164,7 +171,7 @@
             const resultMessage = document.querySelector('.result-message');
 
             if (hasYes) {
-                resultMessage.textContent = "Vous avez répondu oui, à au moins une des questions. Consultez votre médecin avant d'augmenter votre niveau d'activité physique.";
+                resultMessage.textContent = "Vous avez répondu oui à au moins une des questions. Consultez votre médecin avant d'augmenter votre niveau d'activité physique.";
             } else {
                 document.getElementById('agePrompt').style.display = 'block';
             }
@@ -212,5 +219,3 @@
     </script>
 </body>
 </html>
-
-
