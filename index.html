@@ -153,7 +153,7 @@
             <div id="activityPrompt" style="display: none;">
                 <p>Quel niveau d'activité physique souhaitez-vous faire ?</p>
                 <label><input type="radio" name="activityLevel" value="modéré"> Modéré</label>
-                <label><input type="radio" name="activityLevel" value="intense"> Intense ou Très intense</label>
+                <label><input type="radio" name="activityLevel" value="intense"> Intense ou très intense</label>
                 <button type="button" onclick="submitActivity()">Soumettre</button>
             </div>
             <div class="result-message"></div>
@@ -162,3 +162,70 @@
             </div>
         </form>
     </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const currentDate = new Date();
+            const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            document.getElementById('currentDate').textContent = currentDate.toLocaleDateString('fr-FR', options);
+
+            function submitForm() {
+                const form = document.forms['qAppPlusForm'];
+                let hasYes = Array.from(form.querySelectorAll('input[type="radio"]:checked')).some(radio => radio.value === '1');
+                const resultMessage = document.querySelector('.result-message');
+
+                if (hasYes) {
+                    resultMessage.textContent = "Vous avez répondu oui à au moins une des questions. Consultez votre médecin avant d'augmenter votre niveau d'activité physique.";
+                } else {
+                    document.getElementById('agePrompt').style.display = 'block';
+                }
+            }
+
+            function submitAge() {
+                const age = parseInt(document.getElementById('userAge').value);
+                const resultMessage = document.querySelector('.result-message');
+
+                if (isNaN(age) || age < 1) {
+                    alert("Veuillez entrer un âge valide.");
+                    return;
+                }
+
+                document.getElementById('agePrompt').style.display = 'none';
+
+                if (age < 45) {
+                    resultMessage.textContent = "Vous pouvez donc augmenter progressivement votre niveau d'activité physique. Un avis médical préalable n'est pas recommandé selon le guide de l'HAS.";
+                } else {
+                    document.getElementById('activityPrompt').style.display = 'block';
+                }
+            }
+
+            function submitActivity() {
+                const activityLevel = document.querySelector('input[name="activityLevel"]:checked');
+                const resultMessage = document.querySelector('.result-message');
+
+                if (!activityLevel) {
+                    alert("Veuillez sélectionner un niveau d'activité physique.");
+                    return;
+                }
+
+                document.getElementById('activityPrompt').style.display = 'none';
+
+                if (activityLevel.value === 'modéré') {
+                    resultMessage.textContent = "Vous pouvez augmenter progressivement votre niveau d'activité physique. Un avis médical préalable n'est pas recommandé selon le guide de l'HAS.";
+                } else {
+                    resultMessage.textContent = "Il est recommandé que vous consultiez votre médecin avant d'augmenter votre niveau d'activité physique.";
+                }
+            }
+
+            function printDocument() {
+                window.print();
+            }
+
+            window.submitForm = submitForm;
+            window.submitAge = submitAge;
+            window.submitActivity = submitActivity;
+            window.printDocument = printDocument;
+        });
+    </script>
+</body>
+</html>
