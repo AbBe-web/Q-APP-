@@ -142,7 +142,6 @@
             <div class="result-message"></div>
             <div class="actions">
                 <button type="button" onclick="printDocument()">Imprimer</button>
-                <button type="button" onclick="generatePDF()">Créer PDF</button>
             </div>
         </form>
     </div>
@@ -161,24 +160,6 @@
 
         function printDocument() {
             window.print();
-        }
-
-        function generatePDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            let content = "Réponses au Questionnaire Q-AAP+:\n\n";
-
-            const form = document.forms['qAppPlusForm'];
-            Array.from(form.querySelectorAll('input[type="radio"]')).forEach((input, index) => {
-                if (input.checked) {
-                    const questionText = form.querySelectorAll('.question p')[index].textContent;
-                    content += questionText + ": " + (input.value === '1' ? "Oui" : "Non") + "\n";
-                }
-            });
-
-            content += "\nConclusion:\n" + document.querySelector('.result-message').textContent;
-            doc.text(content, 10, 10, { maxWidth: 180 }); // Use maxWidth to manage line breaks
-            doc.save('Questionnaire-Q-AAP+.pdf');
         }
     </script>
 </body>
