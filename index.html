@@ -5,111 +5,129 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Questionnaire Q-AAP+</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .container {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        max-width: 600px;
+        width: 100%;
+    }
+    h1 {
+        font-size: 24px;
+        text-align: center;
+        color: #333;
+    }
+    p, .result-message {
+        font-size: 14px;
+        text-align: center;
+        color: #333;
+    }
+    .result-message {
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .question {
+        display: flex; /* Utiliser un conteneur flexible */
+        align-items: flex-start;
+        gap: 10px; /* Espace entre la question et les options Oui/Non */
+        margin-bottom: 10px;
+    }
+    .question p {
+        flex: 1; /* Le texte de la question prend tout l’espace disponible */
+        margin: 0;
+    }
+    label {
+        margin-left: 0;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+    input[type="radio"], input[type="text"], textarea {
+        margin-right: 5px;
+    }
+    input[type="text"], textarea {
+        width: 100%;
+    }
+    textarea {
+        font-size: 12px;
+        height: 40px;
+        resize: none;
+    }
+    button {
+        background-color: #007BFF;
+        color: white;
+        padding: 10px;
+        border: none;
+        width: 100%;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    #agePrompt, #activityPrompt {
+        margin-top: 20px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    #agePrompt p, #activityPrompt p {
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+    #agePrompt input,
+    #agePrompt button {
+        margin-top: 10px;
+    }
+    @media print {
+        body, .container {
+            background-color: white;
+            box-shadow: none;
+            padding: 5px;
             margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        #agePrompt, #activityPrompt {
-    margin-top: 10px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-}
-#agePrompt p, #activityPrompt p {
-    font-size: 14px;
-    margin-bottom: 5px;
-}
-
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-            max-width: 600px;
-            width: 100%;
-        }
-        h1 {
-            font-size: 24px; /* Larger for title */
-            text-align: center;
-            color: #333;
-        }
-        p, .result-message {
-            font-size: 14px; /* Standard font size for text elements */
-            text-align: center;
-            color: #333;
+            max-width: 100%;
+            font-size: 12px;
         }
         .result-message {
-            font-size: 16px; /* Slightly larger for conclusion */
-            font-weight: bold; /* Make it more prominent */
+            font-size: 14px;
         }
-        .question, .personal-info, .actions {
-            margin-bottom: 10px; /* Reduced margin to save space */
+        button, .actions {
+            display: none;
         }
-        label {
-            display: flex;
-            align-items: center;
-            padding: 2px 5px; /* Reduced padding to compact layout */
-            cursor: pointer;
-            margin-left: 0; /* Minimize space between checkbox and label */
-        }
-        input[type="radio"], input[type="text"], textarea {
-            margin-right: 5px;
-        }
-        input[type="text"], textarea {
-            width: 100%;
-        }
-        textarea {
-            font-size: 12px;
-            height: 40px;
-            resize: none;
-        }
-        button {
-            background-color: #007BFF;
-            color: white;
-            padding: 10px;
-            border: none;
-            width: 100%;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-bottom: 10px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        #agePrompt {
-    margin-top: 20px;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-}
+    }
+</style>
 
-#agePrompt input,
-#agePrompt button {
-    margin-top: 10px;
-}
-        @media print {
-            body, .container {
-                background-color: white;
-                box-shadow: none;
-                padding: 5px;
-                margin: 0;
-                max-width: 100%;
-                font-size: 12px;
-            }
-            .result-message {
-                font-size: 14px;
-            }
-            button, .actions {
-                display: none;
-            }
+    
+    .question {
+        display: flex;
+        align-items: flex-start; /* Aligner les éléments en haut */
+        gap: 10px; /* Espace entre la question et les options Oui/Non */
+        margin-bottom: 10px; /* Espacement entre les questions */
+    }
+
+    .question p {
+        flex: 1; /* Le texte de la question prend tout l’espace disponible */
+        margin: 0; /* Supprime les marges des <p> */
+    }
+
+    label {
+        margin-left: 0; /* Supprime le décalage des labels */
+    }
+</style>
+
         }
     </style>
 </head>
