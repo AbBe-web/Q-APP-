@@ -14,6 +14,18 @@
             justify-content: center;
             align-items: center;
         }
+        #agePrompt, #activityPrompt {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+#agePrompt p, #activityPrompt p {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
         .container {
             background: white;
             padding: 20px;
@@ -139,6 +151,18 @@
                 <p>Date: <span id="currentDate"></span></p>
             </div>
             <button type="button" onclick="submitForm()">Soumettre</button>
+            <div id="agePrompt" style="display: none;">
+    <p>Quel est votre âge ?</p>
+    <input type="number" id="userAge" placeholder="Âge" min="1">
+    <button type="button" onclick="submitAge()">Soumettre</button>
+</div>
+<div id="activityPrompt" style="display: none;">
+    <p>Quel est le niveau d'activité physique que vous souhaitez faire ?</p>
+    <label><input type="radio" name="activityLevel" value="modéré"> Modéré</label>
+    <label><input type="radio" name="activityLevel" value="intense"> Intense ou Très intense</label>
+    <button type="button" onclick="submitActivity()">Soumettre</button>
+</div>
+
             <div class="result-message"></div>
             <div class="actions">
                 <button type="button" onclick="printDocument()">Imprimer</button>
@@ -150,13 +174,55 @@
         document.getElementById('currentDate').textContent = new Date().toLocaleDateString('fr-FR');
 
         function submitForm() {
-            const form = document.forms['qAppPlusForm'];
-            let hasYes = Array.from(form.querySelectorAll('input[type="radio"]:checked')).some(radio => radio.value === '1');
-            const resultMessage = document.querySelector('.result-message');
-            resultMessage.textContent = hasYes ?
-                "Vous avez répondu oui, à au moins une des questions, il est recommandé de consulter votre médecin avant d'augmenter votre niveau d'activité physique." :
-                "Vous avez répondu non à toutes les questions ci-dessus, vous pouvez augmenter progressivement votre niveau d'activité physique. Toutefois, si vous avez plus de 45 ans et que vous envisagez de pratiquer une activité physique intense ou très intense, il est recommandé que vous consultiez votre médecin avant de pratiquer.";
-        }
+    const form = document.forms['qAppPlusForm'];
+    let hasYes = Array.from(form.querySelectorAll('input[type="radio"]:checked')).some(radio => radio.value === '1');
+    const resultMessage = document.querySelector('.result-message');
+
+    if (hasYes) {
+        // Si au moins une réponse est Oui, afficher le message actuel.
+        resultMessage.textContent = "Vous avez répondu oui, à au moins une des questions, il est recommandé de consulter votre médecin avant d'augmenter votre niveau d'activité physique.";
+    } else {
+        // Si toutes les réponses sont Non, demander l'âge.
+        document.getElementById('agePrompt').style.display = 'block';
+    }
+}
+function submitAge() {
+    const age = parseInt(document.getElementById('userAge').value);
+    const resultMessage = document.querySelector('.result-message');
+
+    if (isNaN(age) || age < 1) {
+        alert("Veuillez entrer un âge valide.");
+        return;
+    }
+
+    document.getElementById('agePrompt').style.display = 'none'; // Masquer l'âge une fois soumis.
+
+    if (age < 45) {
+        // Si l'âge est inférieur à 45 ans, afficher le message standard.
+        resultMessage.textContent = "Vous avez répondu non à toutes les questions ci-dessus, vous pouvez augmenter progressivement votre niveau d'activité physique. Toutefois, si vous avez plus de 45 ans et que vous envisagez de pratiquer une activité physique intense ou très intense, il est recommandé que vous consultiez votre médecin avant de pratiquer.";
+    } else {
+        // Si l'âge est supérieur ou égal à 45 ans, demander le niveau d'activité physique.
+        document.getElementById('activityPrompt').style.display = 'block';
+    }
+}
+function submitActivity() {
+    const activityLevel = document.querySelector('input[name="activityLevel"]:checked');
+    const resultMessage = document.querySelector('.result-message');
+
+    if (!activityLevel) {
+        alert("Veuillez sélectionner un niveau d'activité physique.");
+        return;
+    }
+
+    document.getElementById('activityPrompt').style.display = 'none'; // Masquer le formulaire d'activité.
+
+    if (activityLevel.value === 'modéré') {
+        resultMessage.textContent = "Vous pouvez augmenter progressivement votre niveau d'activité physique.";
+    } else if (activityLevel.value === 'intense') {
+        resultMessage.textContent = "Il est recommandé que vous consultiez votre médecin avant d'augmenter votre niveau d'activité physique.";
+    }
+}
+
 
         function printDocument() {
             window.print();
