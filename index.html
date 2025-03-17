@@ -26,21 +26,25 @@
             font-size: 24px;
             text-align: center;
             color: #333;
+            margin-bottom: 20px;
         }
         p, .result-message {
             font-size: 14px;
             text-align: center;
             color: #333;
+            margin-bottom: 20px;
         }
         .result-message {
             font-size: 16px;
             font-weight: bold;
+            margin-top: 20px;
         }
         .question {
             margin-bottom: 15px;
         }
         .question p {
             margin: 0 0 10px 0;
+            font-weight: bold;
         }
         label {
             display: block;
@@ -55,6 +59,9 @@
             height: 40px;
             resize: none;
             margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px;
         }
         button {
             background-color: #007BFF;
@@ -85,13 +92,22 @@
             body, .container {
                 background-color: white;
                 box-shadow: none;
-                padding: 5px;
+                padding: 20px;
                 margin: 0;
                 max-width: 100%;
                 font-size: 12px;
             }
+            h1 {
+                font-size: 20px;
+            }
+            p, .result-message {
+                font-size: 12px;
+            }
             button, .actions {
                 display: none;
+            }
+            .container {
+                page-break-inside: avoid;
             }
         }
     </style>
@@ -99,7 +115,7 @@
 <body>
     <div class="container">
         <h1>Questionnaire Q-AAP+</h1>
-        <p>Ce questionnaire s'adresse aux personnes de 15 à 69 ans voulant augmenter leur niveau d'activité physique. Bravo à vous ;-) L'objectif est de savoir s'il est souhaitable d'avoir un avis médical avant de vous lancer. Lisez les questions et répondez honnêtement par "Oui" ou "Non".</p>
+        <p>Ce questionnaire s'adresse aux personnes de 15 à 69 ans voulant augmenter leur niveau d'activité physique. Bravo à vous ;-) L'objectif est de savoir s'il est souhaitable que vous ayez un avis médical avant de vous lancer. Lisez les questions et répondez honnêtement par "Oui" ou "Non".</p>
         <form id="qAppPlusForm">
             <div class="question">
                 <p>1. Votre médecin vous a dit que vous étiez atteint d’un problème cardiaque ou d’une hypertension ?</p>
@@ -231,3 +247,4 @@
     </script>
 </body>
 </html>
+
