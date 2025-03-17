@@ -171,11 +171,12 @@
 
         function submitForm() {
             const form = document.forms['qAppPlusForm'];
-            const allQuestionsAnswered = Array.from(form.querySelectorAll('input[type="radio"]')).every(radio => radio.checked || radio.name !== form.querySelector(`input[name="${radio.name}"]:checked`).name);
+            const requiredQuestions = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7'];
+            const allRequiredQuestionsAnswered = requiredQuestions.every(name => form.querySelector(`input[name="${name}"]:checked`));
             const resultMessage = document.querySelector('.result-message');
 
-            if (!allQuestionsAnswered) {
-                alert("Veuillez répondre à toutes les questions avant de soumettre le formulaire.");
+            if (!allRequiredQuestionsAnswered) {
+                alert("Veuillez répondre à toutes les questions par 'Oui' ou 'Non' avant de soumettre le formulaire.");
                 return;
             }
 
