@@ -115,6 +115,18 @@
             .question input[type="radio"]:checked + span {
                 display: inline;
             }
+            .question input[type="radio"]:not(:checked) + span {
+                display: none;
+            }
+            .question textarea {
+                display: none;
+            }
+            .question input[type="radio"]:checked + span::after {
+                content: attr(data-details);
+                display: block;
+                font-size: 12px;
+                margin-top: 5px;
+            }
         }
     </style>
 </head>
@@ -248,11 +260,24 @@
         }
 
         function printDocument() {
+            const form = document.forms['qAppPlusForm'];
+            const detailsElements = form.querySelectorAll('textarea');
+            detailsElements.forEach(textarea => {
+                const details = textarea.value.trim();
+                if (details) {
+                    const radio = form.querySelector(`input[name="${textarea.name.slice(0, 3)}"]:checked`);
+                    if (radio) {
+                        const span = radio.nextElementSibling;
+                        span.setAttribute('data-details', details);
+                    }
+                }
+            });
             window.print();
         }
     </script>
 </body>
 </html>
+
 
 
 
