@@ -221,6 +221,7 @@
                     radio.addEventListener('change', () => {
                         if (index < questions.length - 1) {
                             questions[index + 1].classList.add('active');
+                            questions[index + 1].scrollIntoView({ behavior: 'smooth' });
                         }
                     });
                 });
@@ -242,8 +243,10 @@
 
             if (hasYes) {
                 resultMessage.textContent = "Vous avez répondu oui à au moins une des questions. Consultez votre médecin avant d'augmenter votre niveau d'activité physique.";
+                resultMessage.scrollIntoView({ behavior: 'smooth' });
             } else {
                 document.getElementById('agePrompt').style.display = 'block';
+                document.getElementById('agePrompt').scrollIntoView({ behavior: 'smooth' });
             }
         }
 
@@ -260,8 +263,10 @@
 
             if (age < 45) {
                 resultMessage.textContent = "Vous pouvez donc augmenter progressivement votre niveau d'activité physique. Un avis médical préalable n'est pas recommandé selon le guide de l'HAS Consultation et prescription médicale d’activité physique à des fins de santé chez l’adulte.";
+                resultMessage.scrollIntoView({ behavior: 'smooth' });
             } else {
                 document.getElementById('activityPrompt').style.display = 'block';
+                document.getElementById('activityPrompt').scrollIntoView({ behavior: 'smooth' });
             }
         }
 
@@ -281,6 +286,7 @@
             } else {
                 resultMessage.textContent = "Il est recommandé de consulter votre médecin avant d'augmenter votre niveau d'activité physique selon le guide de l'HAS \"Consultation et prescription médicale d’activité physique à des fins de santé chez l’adulte\".";
             }
+            resultMessage.scrollIntoView({ behavior: 'smooth' });
         }
 
         function printDocument() {
