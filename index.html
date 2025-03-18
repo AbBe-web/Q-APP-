@@ -41,6 +41,10 @@
         }
         .question {
             margin-bottom: 15px;
+            display: none;
+        }
+        .question.active {
+            display: block;
         }
         .question p {
             margin: 0 0 10px 0;
@@ -135,7 +139,7 @@
         <h1>Questionnaire Q-AAP+</h1>
         <p>Ce questionnaire s'adresse aux personnes de 15 à 69 ans voulant augmenter leur niveau d'activité physique. Bravo à vous ;-) L'objectif est de savoir s'il est souhaitable d'avoir un avis médical avant de vous lancer. Lisez les questions et répondez honnêtement par "Oui" ou "Non".</p>
         <form id="qAppPlusForm">
-            <div class="question">
+            <div class="question active">
                 <p>1. Votre médecin vous a dit que vous étiez atteint d’un problème cardiaque ou d’une hypertension ?</p>
                 <label><input type="radio" name="q1" value="1"><span> Oui</span></label>
                 <label><input type="radio" name="q1" value="0"><span> Non</span></label>
@@ -208,6 +212,19 @@
             const currentDate = new Date();
             const options = { day: 'numeric', month: 'long', year: 'numeric' };
             document.getElementById('currentDate').textContent = currentDate.toLocaleDateString('fr-FR', options);
+
+            const questions = document.querySelectorAll('.question');
+            questions[0].classList.add('active');
+
+            questions.forEach((question, index) => {
+                question.querySelectorAll('input[type="radio"]').forEach(radio => {
+                    radio.addEventListener('change', () => {
+                        if (index < questions.length - 1) {
+                            questions[index + 1].classList.add('active');
+                        }
+                    });
+                });
+            });
         });
 
         function submitForm() {
