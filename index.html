@@ -1,3 +1,8 @@
+Je comprends le problème. Il semble que l'erreur provienne de la manière dont la phrase est construite. Je vais corriger cela en m'assurant que la phrase est correctement formatée même lorsque le score est 0.
+
+Voici le code corrigé :
+
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -256,6 +261,7 @@
         function submitAge() {
             const age = parseInt(document.getElementById('userAge').value);
             const resultMessage = document.querySelector('.result-message');
+            const totalScore = Array.from(document.forms['qAppPlusForm'].querySelectorAll('input[type="radio"]:checked')).reduce((sum, radio) => sum + parseInt(radio.value), 0);
 
             if (isNaN(age) || age < 1) {
                 alert("Veuillez entrer un âge valide.");
@@ -265,7 +271,7 @@
             document.getElementById('agePrompt').style.display = 'none';
 
             if (age < 45) {
-                resultMessage.textContent = "Votre score au questionnaire Q-AAP+ est de " + document.querySelector('.result-message').textContent.split(' ')[5] + ". Vous pouvez donc augmenter progressivement votre niveau d'activité physique. Un avis médical préalable n'est pas recommandé selon le guide de l'HAS Consultation et prescription médicale d’activité physique à des fins de santé chez l’adulte.";
+                resultMessage.textContent = `Votre score au questionnaire Q-AAP+ est de ${totalScore}. Vous pouvez donc augmenter progressivement votre niveau d'activité physique. Un avis médical préalable n'est pas recommandé selon le guide de l'HAS Consultation et prescription médicale d’activité physique à des fins de santé chez l’adulte.`;
                 resultMessage.scrollIntoView({ behavior: 'smooth' });
             } else {
                 document.getElementById('activityPrompt').style.display = 'block';
@@ -276,6 +282,7 @@
         function submitActivity() {
             const activityLevel = document.querySelector('input[name="activityLevel"]:checked');
             const resultMessage = document.querySelector('.result-message');
+            const totalScore = Array.from(document.forms['qAppPlusForm'].querySelectorAll('input[type="radio"]:checked')).reduce((sum, radio) => sum + parseInt(radio.value), 0);
 
             if (!activityLevel) {
                 alert("Veuillez sélectionner un niveau d'activité physique.");
@@ -285,9 +292,9 @@
             document.getElementById('activityPrompt').style.display = 'none';
 
             if (activityLevel.value === 'modéré') {
-                resultMessage.textContent = "Votre score au questionnaire Q-AAP+ est de " + document.querySelector('.result-message').textContent.split(' ')[5] + ". Vous pouvez augmenter progressivement votre niveau d'activité physique. Un avis médical préalable n'est pas recommandé selon le guide de l'HAS \"Consultation et prescription médicale d’activité physique à des fins de santé chez l’adulte\".";
+                resultMessage.textContent = `Votre score au questionnaire Q-AAP+ est de ${totalScore}. Vous pouvez augmenter progressivement votre niveau d'activité physique. Un avis médical préalable n'est pas recommandé selon le guide de l'HAS "Consultation et prescription médicale d’activité physique à des fins de santé chez l’adulte".`;
             } else {
-                resultMessage.textContent = "Votre score au questionnaire Q-AAP+ est de " + document.querySelector('.result-message').textContent.split(' ')[5] + ". Il est recommandé de consulter votre médecin avant d'augmenter votre niveau d'activité physique selon le guide de l'HAS \"Consultation et prescription médicale d’activité physique à des fins de santé chez l’adulte\".";
+                resultMessage.textContent = `Votre score au questionnaire Q-AAP+ est de ${totalScore}. Il est recommandé de consulter votre médecin avant d'augmenter votre niveau d'activité physique selon le guide de l'HAS "Consultation et prescription médicale d’activité physique à des fins de santé chez l’adulte".`;
             }
             resultMessage.scrollIntoView({ behavior: 'smooth' });
         }
@@ -310,3 +317,6 @@
     </script>
 </body>
 </html>
+```
+
+J'ai corrigé le code pour m'assurer que la phrase "Votre score au questionnaire Q-AAP+ est de 0." s'affiche correctement lorsque le score est 0. J'ai également ajouté le calcul du score total dans les fonctions `submitAge` et `submitActivity` pour garantir la cohérence du message affiché. Vous pouvez copier ce code et le coller dans votre dépôt GitHub.
