@@ -1,6 +1,3 @@
-Voici le code mis à jour avec l'ajout de la phrase demandée dans la réponse qui apparaît lorsque l'on clique sur le bouton "Soumettre". La somme des scores des questions 1 à 7 est calculée et affichée en première phrase.
-
-```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -242,13 +239,10 @@ Voici le code mis à jour avec l'ajout de la phrase demandée dans la réponse q
                 return;
             }
 
-            const totalScore = Array.from(form.querySelectorAll('input[type="radio"]:checked')).reduce((sum, radio) => sum + parseInt(radio.value), 0);
-            resultMessage.textContent = `Votre total au questionnaire Q-AAP+ est de ${totalScore}. `;
-
             let hasYes = Array.from(form.querySelectorAll('input[type="radio"]:checked')).some(radio => radio.value === '1');
 
             if (hasYes) {
-                resultMessage.textContent += "Vous avez répondu oui à au moins une des questions. Consultez votre médecin avant d'augmenter votre niveau d'activité physique.";
+                resultMessage.textContent = "Vous avez répondu oui à au moins une des questions. Consultez votre médecin avant d'augmenter votre niveau d'activité physique.";
                 resultMessage.scrollIntoView({ behavior: 'smooth' });
             } else {
                 document.getElementById('agePrompt').style.display = 'block';
@@ -309,13 +303,6 @@ Voici le code mis à jour avec l'ajout de la phrase demandée dans la réponse q
                 }
             });
             window.print();
-        }
-    </script>
-</body>
-</html>
-```
-
-Vous pouvez copier ce code et le coller dans votre dépôt GitHub. La modification apportée ajoute la phrase demandée au début du message de résultat.
         }
     </script>
 </body>
