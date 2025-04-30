@@ -225,10 +225,16 @@
                             questions[index + 1].classList.add('active');
                             questions[index + 1].scrollIntoView({ behavior: 'smooth' });
                         }
+                        updateTotalScore();
                     });
                 });
             });
         });
+
+        function updateTotalScore() {
+            const form = document.forms['qAppPlusForm'];
+            totalScore = Array.from(form.querySelectorAll('input[type="radio"]:checked')).reduce((sum, radio) => sum + parseInt(radio.value), 0);
+        }
 
         function submitForm() {
             const form = document.forms['qAppPlusForm'];
@@ -241,7 +247,7 @@
                 return;
             }
 
-            totalScore = Array.from(form.querySelectorAll('input[type="radio"]:checked')).reduce((sum, radio) => sum + parseInt(radio.value), 0);
+            updateTotalScore();
             resultMessage.textContent = `Votre score au questionnaire Q-AAP+ est de ${totalScore}. `;
 
             let hasYes = Array.from(form.querySelectorAll('input[type="radio"]:checked')).some(radio => radio.value === '1');
