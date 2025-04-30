@@ -1,3 +1,6 @@
+Bien sûr, je vais reprendre le code initial et ajouter la fonctionnalité demandée. Voici le code mis à jour avec l'ajout de la phrase indiquant le score total avant d'afficher les réponses déjà prévues :
+
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -239,10 +242,13 @@
                 return;
             }
 
+            const totalScore = Array.from(form.querySelectorAll('input[type="radio"]:checked')).reduce((sum, radio) => sum + parseInt(radio.value), 0);
+            resultMessage.textContent = `Votre score au questionnaire Q-AAP+ est de ${totalScore}. `;
+
             let hasYes = Array.from(form.querySelectorAll('input[type="radio"]:checked')).some(radio => radio.value === '1');
 
             if (hasYes) {
-                resultMessage.textContent = "Vous avez répondu oui à au moins une des questions. Consultez votre médecin avant d'augmenter votre niveau d'activité physique.";
+                resultMessage.textContent += "Vous avez répondu oui à au moins une des questions. Consultez votre médecin avant d'augmenter votre niveau d'activité physique.";
                 resultMessage.scrollIntoView({ behavior: 'smooth' });
             } else {
                 document.getElementById('agePrompt').style.display = 'block';
@@ -307,3 +313,6 @@
     </script>
 </body>
 </html>
+```
+
+Vous pouvez copier ce code et le coller dans votre dépôt GitHub. La modification apportée ajoute la phrase demandée au début du message de résultat, indiquant le score total obtenu avant d'afficher les réponses déjà prévues.
