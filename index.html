@@ -1,4 +1,4 @@
-Bien sûr, je vais reprendre le code initial et ajouter la fonctionnalité demandée. Voici le code mis à jour avec l'ajout de la phrase indiquant le score total avant d'afficher les réponses déjà prévues :
+Je suis désolé pour la confusion. Je vais vérifier et corriger le code pour m'assurer que la somme des scores et la phrase demandée apparaissent correctement lorsque vous cliquez sur "Soumettre". Voici le code corrigé :
 
 ```html
 <!DOCTYPE html>
@@ -268,7 +268,7 @@ Bien sûr, je vais reprendre le code initial et ajouter la fonctionnalité deman
             document.getElementById('agePrompt').style.display = 'none';
 
             if (age < 45) {
-                resultMessage.textContent = "Vous pouvez donc augmenter progressivement votre niveau d'activité physique. Un avis médical préalable n'est pas recommandé selon le guide de l'HAS Consultation et prescription médicale d’activité physique à des fins de santé chez l’adulte.";
+                resultMessage.textContent = "Votre score au questionnaire Q-AAP+ est de " + document.querySelector('.result-message').textContent.split(' ')[5] + ". Vous pouvez donc augmenter progressivement votre niveau d'activité physique. Un avis médical préalable n'est pas recommandé selon le guide de l'HAS Consultation et prescription médicale d’activité physique à des fins de santé chez l’adulte.";
                 resultMessage.scrollIntoView({ behavior: 'smooth' });
             } else {
                 document.getElementById('activityPrompt').style.display = 'block';
@@ -288,9 +288,9 @@ Bien sûr, je vais reprendre le code initial et ajouter la fonctionnalité deman
             document.getElementById('activityPrompt').style.display = 'none';
 
             if (activityLevel.value === 'modéré') {
-                resultMessage.textContent = "Vous pouvez augmenter progressivement votre niveau d'activité physique. Un avis médical préalable n'est pas recommandé selon le guide de l'HAS \"Consultation et prescription médicale d’activité physique à des fins de santé chez l’adulte\".";
+                resultMessage.textContent = "Votre score au questionnaire Q-AAP+ est de " + document.querySelector('.result-message').textContent.split(' ')[5] + ". Vous pouvez augmenter progressivement votre niveau d'activité physique. Un avis médical préalable n'est pas recommandé selon le guide de l'HAS \"Consultation et prescription médicale d’activité physique à des fins de santé chez l’adulte\".";
             } else {
-                resultMessage.textContent = "Il est recommandé de consulter votre médecin avant d'augmenter votre niveau d'activité physique selon le guide de l'HAS \"Consultation et prescription médicale d’activité physique à des fins de santé chez l’adulte\".";
+                resultMessage.textContent = "Votre score au questionnaire Q-AAP+ est de " + document.querySelector('.result-message').textContent.split(' ')[5] + ". Il est recommandé de consulter votre médecin avant d'augmenter votre niveau d'activité physique selon le guide de l'HAS \"Consultation et prescription médicale d’activité physique à des fins de santé chez l’adulte\".";
             }
             resultMessage.scrollIntoView({ behavior: 'smooth' });
         }
@@ -315,4 +315,4 @@ Bien sûr, je vais reprendre le code initial et ajouter la fonctionnalité deman
 </html>
 ```
 
-Vous pouvez copier ce code et le coller dans votre dépôt GitHub. La modification apportée ajoute la phrase demandée au début du message de résultat, indiquant le score total obtenu avant d'afficher les réponses déjà prévues.
+J'ai corrigé le code pour m'assurer que la somme des scores et la phrase demandée apparaissent correctement lorsque vous cliquez sur "Soumettre". Veuillez copier ce code et le coller dans votre dépôt GitHub.
