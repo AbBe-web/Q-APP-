@@ -1,3 +1,6 @@
+Pour corriger le code afin de répondre à vos exigences, nous devons modifier la fonction `submitActivity` pour afficher les messages appropriés en fonction de l'âge et du niveau d'activité physique choisi. Voici le code mis à jour :
+
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -197,7 +200,7 @@
             </div>
             <div id="activityPrompt" style="display: none;">
                 <p>Quel niveau d'activité physique souhaitez-vous faire ?</p>
-                <label><input type="radio" name="activityLevel" value="modéré"><span> Modéré : vous êtes essouflé mais pouvez encore parler en faisant des phrases complètes</span></label>
+                <label><input type="radio" name="activityLevel" value="modéré"><span> Modéré : vous êtes essoufflé mais pouvez encore parler en faisant des phrases complètes</span></label>
                 <label><input type="radio" name="activityLevel" value="intense"><span> Intense ou très intense : vous ne pouvez pas prononcer plus que quelques mots voire aucun</span></label>
                 <button type="button" onclick="submitActivity()">Soumettre</button>
             </div>
@@ -287,9 +290,9 @@
             document.getElementById('activityPrompt').style.display = 'none';
 
             if (activityLevel.value === 'modéré') {
-                resultMessage.textContent = `Votre score au questionnaire Q-AAP+ est de ${totalScore}. Vous pouvez augmenter progressivement votre niveau d'activité physique. Un avis médical préalable n'est pas recommandé selon le guide de l'HAS "Consultation et prescription médicale d’activité physique à des fins de santé chez l’adulte".`;
+                resultMessage.textContent = `Votre score au questionnaire Q-AAP+ est de ${totalScore} et vous avez choisi de pratiquer une activité physique d'intensité modérée. Vous pouvez donc augmenter progressivement votre niveau d'activité physique. Un avis médical préalable n'est pas recommandé selon le guide de l'HAS Consultation et prescription médicale d’activité physique à des fins de santé chez l’adulte.`;
             } else {
-                resultMessage.textContent = `Votre score au questionnaire Q-AAP+ est de ${totalScore}. Il est recommandé de consulter votre médecin avant d'augmenter votre niveau d'activité physique selon le guide de l'HAS "Consultation et prescription médicale d’activité physique à des fins de santé chez l’adulte".`;
+                resultMessage.textContent = `Votre score au questionnaire Q-AAP+ est de ${totalScore} mais vous avez choisi de pratiquer une activité physique d'intensité élevée ou très élevée, il est recommandé de consulter votre médecin avant d'augmenter votre niveau d'activité physique selon le guide de l'HAS "Consultation et prescription médicale d’activité physique à des fins de santé chez l’adulte".`;
             }
             resultMessage.scrollIntoView({ behavior: 'smooth' });
         }
@@ -312,3 +315,6 @@
     </script>
 </body>
 </html>
+```
+
+Avec ces modifications, le message affiché après la soumission du niveau d'activité physique sera conforme à vos exigences.
