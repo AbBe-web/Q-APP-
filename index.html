@@ -1,211 +1,200 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Questionnaire Q-AAP+</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-            max-width: 600px;
-            width: 100%;
-        }
-        h1 {
-            font-size: 24px;
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-        }
-        p, .result-message {
-            font-size: 14px;
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-        }
-        .result-message {
-            font-size: 16px;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-        .question {
-            margin-bottom: 15px;
-            display: none;
-        }
-        .question.active {
-            display: block;
-        }
-        .question p {
-            margin: 0 0 10px 0;
-            font-weight: bold;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        input[type="radio"] {
-            margin-right: 5px;
-        }
-        textarea {
-            font-size: 12px;
-            width: 100%;
-            height: 40px;
-            resize: none;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 5px;
-        }
-        button {
-            background-color: #007BFF;
-            color: white;
-            padding: 10px;
-            border: none;
-            width: 100%;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-bottom: 10px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        #agePrompt, #activityPrompt {
-            margin-top: 20px;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-        #agePrompt input,
-        #agePrompt button {
-            margin-top: 10px;
-        }
-        .rgpd-banner {
-            background-color: #eef6ff;
-            border-left: 4px solid #007BFF;
-            padding: 15px;
-            margin-bottom: 20px;
-            font-size: 13px;
-            line-height: 1.4;
-        }
-        @media print {
-            body, .container {
-                background-color: white;
-                box-shadow: none;
-                padding: 20px;
-                margin: 0;
-                max-width: 100%;
-                font-size: 12px;
-            }
-            h1 {
-                font-size: 20px;
-            }
-            p, .result-message {
-                font-size: 12px;
-            }
-            button, .actions {
-                display: none;
-            }
-            .container {
-                page-break-inside: avoid;
-            }
-            .question label {
-                display: none;
-            }
-            .question input[type="radio"]:checked + span {
-                display: inline;
-            }
-            .question input[type="radio"]:not(:checked) + span {
-                display: none;
-            }
-            .question textarea {
-                display: none;
-            }
-            .question .answer {
-                display: block;
-                font-size: 12px;
-                margin-top: 5px;
-                color: #555;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Questionnaire Q-AAP+</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      max-width: 600px;
+      width: 100%;
+    }
+    h1 {
+      font-size: 24px;
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    p, .result-message {
+      font-size: 14px;
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .question {
+      margin-bottom: 15px;
+    }
+    .question p {
+      font-weight: bold;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    textarea {
+      font-size: 12px;
+      width: 100%;
+      height: 40px;
+      resize: none;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 5px;
+      margin-top: 5px;
+    }
+    input[type="radio"] {
+      margin-right: 5px;
+    }
+    .result-message {
+      font-weight: bold;
+    }
+    .rgpd-banner {
+      background-color: #e9f5ff;
+      border: 1px solid #cce5ff;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      font-size: 14px;
+      color: #004085;
+    }
+    .rgpd-banner a {
+      color: #004085;
+      text-decoration: underline;
+    }
+    button {
+      background-color: #007BFF;
+      color: white;
+      padding: 10px;
+      border: none;
+      width: 100%;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-    <h1>Questionnaire Q-AAP+</h1>
-    <p>Ce questionnaire s'adresse aux personnes de 15 à 69 ans voulant augmenter leur niveau d'activité physique. Bravo à vous ;-) L'objectif est de savoir s'il est souhaitable d'avoir un avis médical avant de vous lancer. Lisez les questions et répondez honnêtement par "Oui" ou "Non".</p>
+  <div class="container">
 
     <!-- Bandeau RGPD -->
     <div class="rgpd-banner">
-        <strong>Informations RGPD :</strong> Ce questionnaire est anonyme. Aucune donnée n’est envoyée ni stockée sur un serveur. Vos réponses sont traitées uniquement dans votre navigateur. Le nom et prénom sont facultatifs. Vous pouvez imprimer le résultat à des fins personnelles. Aucun traitement automatisé n’est effectué. En cas de doute sur vos droits, consultez <a href="https://www.cnil.fr" target="_blank">cnil.fr</a>.
+      Ce questionnaire ne stocke pas vos données. Vous pouvez l'imprimer pour votre usage personnel ou médical.
+      En continuant, vous acceptez que les données saisies puissent être affichées sur votre écran ou imprimées.
+      <a href="https://abbe-web.github.io/Q-APP-/politique-confidentialite.html" target="_blank" rel="noopener noreferrer">Consulter la politique de confidentialité</a> |
+      <a href="https://www.cnil.fr/fr/les-droits-pour-maitriser-vos-donnees-personnelles" target="_blank" rel="noopener noreferrer">Vos droits (CNIL)</a>
     </div>
-<div class="rgpd-banner" style="background-color: #fff8dc; border: 1px solid #ccc; padding: 10px; margin-bottom: 20px; border-radius: 5px; font-size: 14px;">
-    <p>
-        Ce formulaire ne transmet ni ne conserve vos données : tout est traité localement dans votre navigateur. Les champs nom et prénom sont facultatifs. 
-        <br>
-        En utilisant ce questionnaire, vous acceptez ces conditions. 
-        <a href="politique-confidentialite.md" target="_blank" style="color: #007BFF; text-decoration: underline;">Lire la politique de confidentialité</a>.
-    </p>
-</div>
 
-    <form id="qAppPlusForm">
-        <!-- ... questions ... -->
+    <h1>Questionnaire Q-AAP+</h1>
+    <p>Ce questionnaire s'adresse aux personnes de 15 à 69 ans voulant augmenter leur niveau d'activité physique. L'objectif est de savoir s'il est souhaitable d'avoir un avis médical avant de vous lancer.</p>
 
-        <div class="question active">
-            <p>1. Votre médecin vous a dit que vous étiez atteint d’un problème cardiaque ou d’une hypertension ?</p>
-            <label><input type="radio" name="q1" value="1"><span> Oui</span></label>
-            <label><input type="radio" name="q1" value="0"><span> Non</span></label>
-            <div class="answer"></div>
-        </div>
+    <form id="questionnaire">
+      <div class="question">
+        <p>1. Avez-vous un problème de santé pour lequel vous devriez faire de l’activité physique uniquement sous surveillance médicale ?</p>
+        <label><input type="radio" name="q1" value="oui"> Oui</label>
+        <label><input type="radio" name="q1" value="non"> Non</label>
+      </div>
 
-        <!-- les autres questions inchangées... -->
+      <div class="question">
+        <p>2. Ressentez-vous une douleur à la poitrine lorsque vous faites de l’activité physique ?</p>
+        <label><input type="radio" name="q2" value="oui"> Oui</label>
+        <label><input type="radio" name="q2" value="non"> Non</label>
+      </div>
 
-        <div class="question">
-            <p>7. Votre médecin vous a-t-il déjà dit que vous ne devriez pas faire d’activité physique sans supervision médicale ?</p>
-            <label><input type="radio" name="q7" value="1"><span> Oui</span></label>
-            <label><input type="radio" name="q7" value="0"><span> Non</span></label>
-            <div class="answer"></div>
-        </div>
+      <div class="question">
+        <p>3. Durant le dernier mois, avez-vous ressenti une douleur à la poitrine lorsque vous ne faisiez pas d’activité physique ?</p>
+        <label><input type="radio" name="q3" value="oui"> Oui</label>
+        <label><input type="radio" name="q3" value="non"> Non</label>
+      </div>
 
-        <div class="personal-info">
-            <input type="text" id="firstName" placeholder="Prénom (facultatif)">
-            <input type="text" id="lastName" placeholder="Nom (facultatif)">
-            <p>Date : <span id="currentDate"></span></p>
-        </div>
+      <div class="question">
+        <p>4. Perdez-vous l’équilibre à cause d’étourdissements ou avez-vous déjà perdu connaissance ?</p>
+        <label><input type="radio" name="q4" value="oui"> Oui</label>
+        <label><input type="radio" name="q4" value="non"> Non</label>
+      </div>
 
-        <button type="button" onclick="submitForm()">Soumettre</button>
+      <div class="question">
+        <p>5. Avez-vous un problème osseux ou articulaire qui pourrait s’aggraver par un changement dans votre pratique d’activité physique ?</p>
+        <label><input type="radio" name="q5" value="oui"> Oui</label>
+        <label><input type="radio" name="q5" value="non"> Non</label>
+      </div>
 
-        <!-- Prompts d’âge et d'activité -->
+      <div class="question">
+        <p>6. Votre médecin vous prescrit-il actuellement des médicaments pour votre tension artérielle ou pour un problème cardiaque ?</p>
+        <label><input type="radio" name="q6" value="oui"> Oui</label>
+        <label><input type="radio" name="q6" value="non"> Non</label>
+      </div>
 
-        <div id="agePrompt" style="display: none;">
-            <p>Quel est votre âge ?</p>
-            <input type="number" id="userAge" placeholder="Âge" min="1">
-            <button type="button" onclick="submitAge()">Soumettre</button>
-        </div>
+      <div class="question">
+        <p>7. Connaissez-vous une autre raison pour laquelle vous ne devriez pas faire d’activité physique ?</p>
+        <label><input type="radio" name="q7" value="oui"> Oui</label>
+        <label><input type="radio" name="q7" value="non"> Non</label>
+      </div>
 
-        <div id="activityPrompt" style="display: none;">
-            <p>Quel niveau d'activité physique souhaitez-vous faire ?</p>
-            <label><input type="radio" name="activityLevel" value="modéré"><span> Modéré</span></label>
-            <label><input type="radio" name="activityLevel" value="intense"><span> Intense ou très intense</span></label>
-            <button type="button" onclick="submitActivity()">Soumettre</button>
-        </div>
+      <div class="question">
+        <p>8. Avez-vous plus de 69 ans ?</p>
+        <label><input type="radio" name="q8" value="oui"> Oui</label>
+        <label><input type="radio" name="q8" value="non"> Non</label>
+      </div>
 
-        <div class="result-message"></div>
+      <div class="question">
+        <p>9. Avez-vous moins de 15 ans ?</p>
+        <label><input type="radio" name="q9" value="oui"> Oui</label>
+        <label><input type="radio" name="q9" value="non"> Non</label>
+      </div>
 
-        <div class="actions">
-            <button type="button" onclick="printDocument()">Imprimer</button>
-        </div>
+      <button type="button" onclick="afficherResultat()">Afficher le résultat</button>
     </form>
-</div>
+
+    <div id="resultat" class="result-message"></div>
+
+  </div>
+
+  <script>
+    function afficherResultat() {
+      const questions = document.querySelectorAll('form .question');
+      let besoinAvisMedical = false;
+
+      for (let i = 0; i < questions.length; i++) {
+        const question = questions[i];
+        const radios = question.querySelectorAll('input[type="radio"]');
+        let reponse = "";
+
+        radios.forEach(radio => {
+          if (radio.checked) {
+            reponse = radio.value;
+          }
+        });
+
+        if (reponse === "oui") {
+          besoinAvisMedical = true;
+        }
+
+        if (reponse === "") {
+          document.getElementById("resultat").innerText = "Merci de répondre à toutes les questions.";
+          return;
+        }
+      }
+
+      if (besoinAvisMedical) {
+        document.getElementById("resultat").innerText = "Un avis médical est recommandé avant d'augmenter votre activité physique.";
+      } else {
+        document.getElementById("resultat").innerText = "Vous pouvez commencer une activité physique progressivement et de manière sécuritaire.";
+      }
+    }
+  </script>
+</body>
+</html>
