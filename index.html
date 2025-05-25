@@ -92,6 +92,14 @@
         #agePrompt button {
             margin-top: 10px;
         }
+        .rgpd-banner {
+            background-color: #eef6ff;
+            border-left: 4px solid #007BFF;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            line-height: 1.4;
+        }
         @media print {
             body, .container {
                 background-color: white;
@@ -135,19 +143,24 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Questionnaire Q-AAP+</h1>
+<div class="container">
+    <h1>Questionnaire Q-AAP+</h1>
+    <p>Ce questionnaire s'adresse aux personnes de 15 à 69 ans voulant augmenter leur niveau d'activité physique. Bravo à vous ;-) L'objectif est de savoir s'il est souhaitable d'avoir un avis médical avant de vous lancer. Lisez les questions et répondez honnêtement par "Oui" ou "Non".</p>
 
-        <!-- 🛡️ Bandeau RGPD -->
-        <p>
-            En remplissant ce questionnaire, vous acceptez que vos réponses soient utilisées uniquement pour une impression locale sur votre appareil.
-            Consultez notre <a href="https://abbe-web.github.io/Q-APP-/politique-confidentialite.html" target="_blank">politique de confidentialité</a>.
-            <br>
-            <a href="https://www.cnil.fr/fr/reglement-europeen-protection-donnees" target="_blank">En savoir plus sur vos droits</a> (site de la CNIL).
-        </p>
+    <!-- Bandeau RGPD -->
+    <div class="rgpd-banner">
+        <strong>Informations RGPD :</strong> Ce questionnaire est anonyme. Aucune donnée n’est envoyée ni stockée sur un serveur. Vos réponses sont traitées uniquement dans votre navigateur. Le nom et prénom sont facultatifs. Vous pouvez imprimer le résultat à des fins personnelles. Aucun traitement automatisé n’est effectué. En cas de doute sur vos droits, consultez <a href="https://www.cnil.fr" target="_blank">cnil.fr</a>.
+    </div>
+<div class="rgpd-banner" style="background-color: #fff8dc; border: 1px solid #ccc; padding: 10px; margin-bottom: 20px; border-radius: 5px; font-size: 14px;">
+    <p>
+        Ce formulaire ne transmet ni ne conserve vos données : tout est traité localement dans votre navigateur. Les champs nom et prénom sont facultatifs. 
+        <br>
+        En utilisant ce questionnaire, vous acceptez ces conditions. 
+        <a href="politique-confidentialite.md" target="_blank" style="color: #007BFF; text-decoration: underline;">Lire la politique de confidentialité</a>.
+    </p>
+</div>
 
-        <form id="qAppPlusForm">
-            <!-- ... (le reste du formulaire reste inchangé) -->
+    <form id="qAppPlusForm">
         <!-- ... questions ... -->
 
         <div class="question active">
@@ -202,4 +215,3 @@
 </script>
 </body>
 </html>
-
